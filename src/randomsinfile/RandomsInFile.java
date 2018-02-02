@@ -20,60 +20,42 @@ public class RandomsInFile {
     /**
      * @param args the command line arguments
      */
+    
+    public static int validateInt(String prompt)throws IllegalArgumentException {
+        boolean go = true;
+        int n = 0;
+        while(go){
+        System.out.print(prompt);
+        Scanner keyboard = new Scanner(System.in);
+        String str = keyboard.nextLine();
+        try{
+        n = Integer.parseInt(str);
+        if(n>0)go = false; //making sure numbers are positive.
+            else {
+            throw new IllegalArgumentException();
+                }
+        }
+        catch(IllegalArgumentException e){
+            System.out.print("ERROR: Inncorect input "+ e.getMessage()+"\n");
+        }
+            }
+        return n;
+    }
+    
     public static void main(String[] args) {
         // TODO code application logic here
         
         Scanner keyboard = new Scanner(System.in);
-        boolean go = true;
+        
         int num = 0;
         int min = 0;
         int max = 0;
-        while(go){
-        System.out.print("Enter number of randoms generated: ");
-        String str = keyboard.nextLine(); //getting amount of numbers generated 
-        try{
-            num = Integer.parseInt(str.trim());
-             if(num>0){ go = false;}
-                else System.out.printf("The number you entered was not positive.\n "
-                                                        + "Please try again... \n");
-           
-        }
-        catch(NumberFormatException e){
-                System.out.printf("ERROR: %s\n", e.getMessage() );
-                }
-        } 
-        go = true; //resetting go back to true.
-        while(go){
-        System.out.print("Enter min for range: "); //getting the min for range.
-        String str = keyboard.nextLine();
-        try{
-            min = Integer.parseInt(str.trim());
-             if(min>0){ go = false;}
-                else System.out.printf("The number you entered was not positive.\n "
-                                                        + "Please try again... \n");
-            
-        }
-        catch(NumberFormatException e){
-                System.out.printf("ERROR: %s\n", e.getMessage() );
-                }
-        }
-        go = true; 
-        while(go){
-        System.out.print("Enter max for range: ");//getting the max for range
-        String str = keyboard.nextLine();
-        try{
-            max = Integer.parseInt(str.trim());
-             if(max>0){ go = false;}
-                else System.out.printf("The number you entered was not positive.\n "
-                                                        + "Please try again... \n");
-            
-        }
-        catch(NumberFormatException e){
-                System.out.printf("ERROR: %s\n", e.getMessage() );
-                }
-        }
-        go = true; 
         
+        num = validateInt("Enter number of randoms generated: ");
+
+        min = validateInt("Enter min for range: "); //getting the min for range.
+
+        max = validateInt("Enter max for range: ");//getting the max for range
         if(min>max){ //swaping numbers if min is greater than max
             min = min+max;
             max = min-max;
@@ -103,7 +85,7 @@ public class RandomsInFile {
        }
        catch(IOException e){
         System.out.println("Cannot open the file" +e.getMessage());
-    }
+            }
     }
     
       
